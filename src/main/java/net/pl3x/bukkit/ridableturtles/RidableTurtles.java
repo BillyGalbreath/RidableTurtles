@@ -2,6 +2,8 @@ package net.pl3x.bukkit.ridableturtles;
 
 import com.google.common.collect.HashBiMap;
 import net.minecraft.server.v1_13_R1.EntityTypes;
+import net.minecraft.server.v1_13_R1.Item;
+import net.minecraft.server.v1_13_R1.ItemMonsterEgg;
 import net.minecraft.server.v1_13_R1.MinecraftKey;
 import net.minecraft.server.v1_13_R1.RegistryID;
 import net.minecraft.server.v1_13_R1.RegistryMaterials;
@@ -14,9 +16,12 @@ import net.pl3x.bukkit.ridableturtles.entity.EntityRidableTurtle;
 import net.pl3x.bukkit.ridableturtles.listener.TurtleListener;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.craftbukkit.v1_13_R1.inventory.CraftItemStack;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.Listener;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.lang.reflect.Field;
@@ -94,6 +99,15 @@ public class RidableTurtles extends JavaPlugin implements Listener {
             modifiersField.setInt(entityTypes_fieldTURTLE, entityTypes_fieldTURTLE.getModifiers() & ~Modifier.FINAL);
             entityTypes_fieldTURTLE.set(null, types);
         } catch (NoSuchFieldException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+
+        Item turtleSpawnEgg = CraftItemStack.asNMSCopy(new ItemStack(Material.TURTLE_SPAWN_EGG)).getItem();
+        try {
+            Field field_d = ItemMonsterEgg.class.getDeclaredField("d");
+            field_d.setAccessible(true);
+            field_d.set(turtleSpawnEgg, EntityTypes.TURTLE);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
         }
     }
