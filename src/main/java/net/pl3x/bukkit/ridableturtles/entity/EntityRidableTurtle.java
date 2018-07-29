@@ -27,7 +27,7 @@ public class EntityRidableTurtle extends EntityTurtle {
         EntityPlayer rider = getRider();
         if (rider != null) {
             // rotation
-            setYawPitch(lastYaw = yaw = rider.yaw, pitch = -(rider.pitch * 0.5F));
+            setYawPitch(lastYaw = yaw = rider.yaw, pitch = rider.pitch * 0.75F);
             aS = aQ = yaw;
 
             // controls
