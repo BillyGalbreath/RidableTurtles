@@ -12,6 +12,7 @@ import net.pl3x.bukkit.ridableturtles.configuration.Config;
 import net.pl3x.bukkit.ridableturtles.configuration.Lang;
 import net.pl3x.bukkit.ridableturtles.entity.EntityRidableTurtle;
 import net.pl3x.bukkit.ridableturtles.listener.TurtleListener;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.ChatColor;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.EntityType;
@@ -117,5 +118,20 @@ public class RidableTurtles extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(new TurtleListener(), this);
 
         getCommand("ridableturtles").setExecutor(new CmdRidableTurtles(this));
+
+        Metrics metrics = new Metrics(this);
+        metrics.addCustomChart(new Metrics.SimplePie("server_version", () -> {
+            try {
+                Class.forName("com.destroystokyo.paper.PaperConfig");
+                return "Paper";
+            } catch (Exception ignore) {
+            }
+            try {
+                Class.forName("org.spigotmc.SpigotConfig");
+                return "Spigot";
+            } catch (Exception ignore2) {
+            }
+            return "CraftBukkit";
+        }));
     }
 }
