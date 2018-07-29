@@ -1,0 +1,26 @@
+name: ${project.artifactId}
+main: ${project.groupId}.${project.artifactId}
+version: ${project.version}
+description: ${project.artifactId} Spigot/Paper Plugin
+author: BillyGalbreath
+api-version: 1.13
+
+commands:
+  ridableturtles:
+    description: Reload config
+    usage: /<command> reload
+    aliases:
+    - rideableturtles
+    - rideableturtle
+    - ridableturtle
+    - turtles
+    - turtle
+    - rt
+
+permissions:
+  allow.turtle.ride:
+    description: Allow to ride turtles
+    default: op
+  command.turtle.reload:
+    description: Allow to reload config
+    default: op

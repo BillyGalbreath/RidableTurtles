@@ -1,0 +1,7 @@
+# Language file (for translations)
+language-file: lang-en.yml
+
+# Speed modifiers to fine control speed of turtle riding
+speed-modifiers:
+  on-land: 1.0
+  in-water: 1.0
